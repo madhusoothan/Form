@@ -1,0 +1,102 @@
+<section class="container">
+  <h1 class="large text-primary">
+    Create Your Profile
+  </h1>
+  <p class="lead">
+    <i class="fas fa-user"></i> Let's get some information to make your
+    profile stand out
+  </p>
+  <small>* = required field</small>
+  <form class="form" [formGroup]="registerForm" (ngSubmit)="onSubmitHandler()">
+    <div class="form-group">
+      <select name="status" formControlName="profession">
+        <option *ngFor="let obj of professionDetailsList" [value]="obj.keyword">{{obj.value}}</option>
+        <!-- <option value="Developer">Developer</option>
+          <option value="Junior Developer">Junior Developer</option>
+          <option value="Senior Developer">Senior Developer</option>
+          <option value="Manager">Manager</option>
+          <option value="Student or Learning">Student or Learning</option>
+          <option value="Instructor">Instructor or Teacher</option>
+          <option value="Intern">Intern</option>
+          <option value="Other">Other</option>  -->
+      </select>
+      <div *ngIf="f.profession.errors?.required" class="alert alert-danger">Profession is required</div>
+      <small class="form-text">Give us an idea of where you are at in your career</small>
+    </div>
+    <div class="form-group">
+      <input type="text" formControlName="company" placeholder="Company" name="company" />
+      <small class="form-text">Could be your own company or one you work for</small>
+      <div *ngIf="f.company.errors?.required" class="alert alert-danger">company is required</div>
+    </div>
+    <div class="form-group">
+      <input type="text" formControlName="website" placeholder="Website" name="website" />
+      <div *ngIf="f.website.errors?.required" class="alert alert-danger">website is required</div>
+      <small class="form-text">Could be your own or a company website</small>
+    </div>
+    <div class="form-group">
+      <input type="text" formControlName="location" placeholder="Location" name="location" />
+      <div *ngIf="f.location.errors?.required" class="alert alert-danger">Location is required</div>
+      <small class="form-text">City & state suggested (eg. Boston, MA)</small>
+    </div>
+    <div class="form-group" formArrayName="skills">
+      <div *ngFor="let obj of registerForm.get('skills')['controls'];let i=index" [formGroupName]="i">
+        <input type="text" formControlName="skillName" placeholder="* Skills" name="skills" />
+        <div *ngIf="f.skillName.errors?.required" class="alert alert-danger">skills is required</div>
+        <a class="btn btn-light my-1" (click)="onRemoveSkill(i)">-</a>
+      </div>
+      <small class="form-text">Please use comma separated values (eg.
+        HTML,CSS,JavaScript,PHP)</small>
+      <a class="btn btn-light my-1" (click)="onAddSkill()">+</a>
+    </div>
+    <div class="form-group">
+      <input type="text" formControlName="github" placeholder="Github Username" name="githubusername" />
+      <div *ngIf="f.github.errors?.required" class="alert alert-danger">Github is required</div>
+
+    </div>
+    <div class="form-group">
+      <textarea formControlName="bio" placeholder="A short bio of yourself" name="bio"></textarea>
+      <div *ngIf="f.bio.errors?.required" class="alert alert-danger">Bio is required</div>
+      <small class="form-text">Tell us a little about yourself</small>
+    </div>
+
+    <div class="my-2">
+      <button type="button" (click)="onClick()" class="btn btn-light">
+        {{addNetwork}}
+      </button>
+      <span>Optional</span>
+    </div>
+    <div *ngIf="socialOnNetwork">
+      <div class="form-group social-input" formGroupName='social'>
+        <i class="fab fa-twitter fa-2x"></i>
+        <input type="text" formControlName="twitter" placeholder="Twitter URL" name="twitter" />
+        <div *ngIf="f.twitter.errors?.required" class="alert alert-danger">twitter is required</div>
+      </div>
+
+      <div class="form-group social-input" formGroupName='social'>
+        <i class="fab fa-facebook fa-2x"></i>
+        <input type="text" formControlName="facebook" placeholder="Facebook URL" name="facebook" />
+        <div *ngIf="f.facebook.errors?.required" class="alert alert-danger">Facebook is required</div>
+      </div>
+
+      <div class="form-group social-input" formGroupName='social'>
+        <i class="fab fa-youtube fa-2x"></i>
+        <input type="text" formControlName="youtube" placeholder="YouTube URL" name="youtube" />
+        <div *ngIf="f.youtube.errors?.required" class="alert alert-danger">Youtube is required</div>
+      </div>
+
+      <div class="form-group social-input" formGroupName='social'>
+        <i class="fab fa-linkedin fa-2x"></i>
+        <input type="text" formControlName="linkedin" placeholder="Linkedin URL" name="linkedin" />
+        <div *ngIf="f.linkedin.errors?.required" class="alert alert-danger">LinkedIn is required</div>
+      </div>
+
+      <div class="form-group social-input" formGroupName='social'>
+        <i class="fab fa-instagram fa-2x"></i>
+        <input type="text" formControlName="instagram" placeholder="Instagram URL" name="instagram" />
+        <div *ngIf="f.instagram.errors?.required" class="alert alert-danger">Instagram is required</div>
+      </div>
+    </div>
+    <input type="submit" class="btn btn-primary my-1" />
+    <a class="btn btn-light my-1" href="dashboard.html">Go Back</a>
+  </form>
+</section>

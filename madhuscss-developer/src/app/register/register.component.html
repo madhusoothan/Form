@@ -1,0 +1,58 @@
+<section class="container">
+    <h1 class="large text-primary">Sign Up</h1>
+    <p class="lead"><i class="fas fa-user"></i> Create Your Account</p>
+    <form class="form" #loginForm="ngForm" (ngSubmit)="onSubmitHandler(loginForm)">
+
+      <div class="form-group">
+        <input type="text" placeholder="Name" name="name" minlength="5" maxlength="15" pattern="[a-zA-Z0-9/s]{0,20}" ngModel #name ="ngModel" required />
+        <div  *ngIf="name.invalid && name.errors?.required" class="alert alert-danger">
+            name cannot be empty
+        </div>
+        <div  *ngIf="name.invalid && name.errors?.minlength" class="alert alert-danger">
+            name minimum character should be 5 
+       </div> 
+       <div  *ngIf="name.invalid && name.errors?.maxlength" class="alert alert-danger">
+           name maximum character should be 15
+       </div>
+       <div  *ngIf="name.invalid && name.errors?.pattern" class="alert alert-danger">
+        no special character
+    </div>
+    </div>
+      <div class="form-group">
+        <input type="email" placeholder="Email Address" name="email" pattern="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ngModel #email ="ngModel" required/>
+        <div  *ngIf="email.invalid && email.errors?.pattern" class="alert alert-danger">
+            no special character
+        </div>
+
+    </div>
+      <div class="form-group">
+        <input
+          type="password"
+          placeholder="Password"
+          name="password"
+          minlength="6"
+          ngModel #password = "ngModel" required
+        />
+        <div  *ngIf="formSubmitted  && this.passwordMatch" class="alert alert-danger">
+            password not valid
+        </div>
+
+      </div>
+      <div class="form-group">
+        <input
+          type="password"
+          placeholder="Confirm Password"
+          name="password2"
+          minLength="6"
+          ngModel #password2 ="ngModel" required
+        />
+      </div>
+      <div  *ngIf="formSubmitted && passwordMatch" class="alert alert-danger">
+        password not valid
+    </div>
+      <input type="submit" class="btn btn-primary" value="Register" />
+    </form>
+    <p class="my-1">
+      Already have an account? <a routerlink="/login">Sign In</a>
+    </p>
+  </section>
